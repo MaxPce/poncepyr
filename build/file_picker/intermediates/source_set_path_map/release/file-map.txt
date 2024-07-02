@@ -1,0 +1,13 @@
+com.mr.flutter.plugin.filepicker.file_picker-jetified-window-java-1.0.0-beta04-0 C:\Users\Max\.gradle\caches\transforms-3\121cdef1fac742773826967dd9c64025\transformed\jetified-window-java-1.0.0-beta04\res
+com.mr.flutter.plugin.filepicker.file_picker-jetified-annotation-experimental-1.1.0-1 C:\Users\Max\.gradle\caches\transforms-3\27907f44a237546e3eb5352ff9f7584d\transformed\jetified-annotation-experimental-1.1.0\res
+com.mr.flutter.plugin.filepicker.file_picker-core-1.6.0-2 C:\Users\Max\.gradle\caches\transforms-3\70f69c6c7101368fa6666ac684ea3115\transformed\core-1.6.0\res
+com.mr.flutter.plugin.filepicker.file_picker-jetified-window-1.0.0-beta04-3 C:\Users\Max\.gradle\caches\transforms-3\a7d24f5e5d2297de53f4c140fe32adef\transformed\jetified-window-1.0.0-beta04\res
+com.mr.flutter.plugin.filepicker.file_picker-main-4 C:\Users\Max\AppData\Local\Pub\Cache\hosted\pub.dev\file_picker-8.0.3\android\src\main\res
+com.mr.flutter.plugin.filepicker.file_picker-release-5 C:\Users\Max\AppData\Local\Pub\Cache\hosted\pub.dev\file_picker-8.0.3\android\src\release\res
+com.mr.flutter.plugin.filepicker.file_picker-pngs-6 H:\app_admin\build\file_picker\generated\res\pngs\release
+com.mr.flutter.plugin.filepicker.file_picker-resValues-7 H:\app_admin\build\file_picker\generated\res\resValues\release
+com.mr.flutter.plugin.filepicker.file_picker-rs-8 H:\app_admin\build\file_picker\generated\res\rs\release
+com.mr.flutter.plugin.filepicker.file_picker-mergeReleaseResources-9 H:\app_admin\build\file_picker\intermediates\incremental\release\mergeReleaseResources\merged.dir
+com.mr.flutter.plugin.filepicker.file_picker-mergeReleaseResources-10 H:\app_admin\build\file_picker\intermediates\incremental\release\mergeReleaseResources\stripped.dir
+com.mr.flutter.plugin.filepicker.file_picker-merged_res-11 H:\app_admin\build\file_picker\intermediates\merged_res\release
+com.mr.flutter.plugin.filepicker.file_picker-packaged_res-12 H:\app_admin\build\flutter_plugin_android_lifecycle\intermediates\packaged_res\release

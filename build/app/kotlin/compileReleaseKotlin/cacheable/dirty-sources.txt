@@ -1,0 +1,1 @@
+H:\app_admin\android\app\src\main\kotlin\com\example\app_admin\MainActivity.kt
