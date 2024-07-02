@@ -1,108 +1,97 @@
+import 'package:app_admin/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:app_admin/utils/state_managment.dart';
 
-class EditItem extends ConsumerStatefulWidget {
+class EditItem extends StatelessWidget {
   final String uid;
   final String currentDescripcion;
   final String currentEstado;
-  final String currentFecha;
-  final String currentTipo;
+  final String tipoSolicitud;
 
   const EditItem({
     Key? key,
     required this.uid,
     required this.currentDescripcion,
     required this.currentEstado,
-    required this.currentFecha,
-    required this.currentTipo,
+    required this.tipoSolicitud,
   }) : super(key: key);
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _EditItemState();
-}
-
-class _EditItemState extends ConsumerState<EditItem> {
-  final TextEditingController descripcionController =
-      TextEditingController(text: "");
-  final TextEditingController estadoController =
-      TextEditingController(text: "");
-  final TextEditingController fechaController = TextEditingController(text: "");
-  final TextEditingController tipoController = TextEditingController(text: "");
-
-  @override
-  void initState() {
-    descripcionController.text = widget.currentDescripcion;
-    estadoController.text = widget.currentEstado;
-    fechaController.text = widget.currentFecha;
-    tipoController.text = widget.currentTipo;
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final currentDate = DateTime.now();
-    final formattedDate =
-        "${currentDate.day}/${currentDate.month}/${currentDate.year}";
-    fechaController.text = formattedDate;
+    final TextEditingController respuestaController = TextEditingController();
+    final TextEditingController estadoController = TextEditingController(text: currentEstado);
+    final List<String> estados = ['Activa', 'En espera', 'Inactiva'];
+
+    if (!estados.contains(currentEstado)) {
+      estados.add(currentEstado);
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editar Item'),
+        title: const Text('Responder Solicitud'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  onPressed: () async {
-                    await deletePeticion(widget.uid);
-                    Navigator.of(context).pop();
-                  },
-                  icon: const Icon(Icons.delete),
-                ),
-              ],
+            DropdownButtonFormField<String>(
+              value: estadoController.text,
+              onChanged: (String? value) {
+                estadoController.text = value ?? '';
+              },
+              items: estados
+                  .map((String e) => DropdownMenuItem<String>(
+                        value: e,
+                        child: Text(e),
+                      ))
+                  .toList(),
+              decoration: const InputDecoration(labelText: 'Estado'),
             ),
+            const SizedBox(height: 20),
             TextField(
-              controller: descripcionController,
+              controller: respuestaController,
+              maxLines: null,
+              keyboardType: TextInputType.multiline,
               decoration: const InputDecoration(
-                labelText: 'Descripción',
+                labelText: 'Respuesta',
+                alignLabelWithHint: true,
               ),
             ),
-            TextField(
-              controller: fechaController,
-              enabled: false,
-              decoration: const InputDecoration(labelText: 'Fecha'),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
+            const SizedBox(height: 30),
             ElevatedButton(
-              onPressed: () async {
-                // Actualizar automáticamente la fecha
-                final currentDate = DateTime.now();
-                final formattedDate =
-                    "${currentDate.day}/${currentDate.month}/${currentDate.year}";
-                fechaController.text = formattedDate;
-
-                await updatePeticion(
-                  widget.uid,
-                  descripcionController.text,
-                  estadoController.text,
-                  fechaController.text,
-                  tipoController.text,
-                ).then((_) {
-                  Navigator.pop(context);
-                });
-              },
-              child: const Text("Actualizar"),
-            )
+              onPressed: () => _responderSolicitud(
+                uid,
+                estadoController.text,
+                respuestaController.text,
+                context,
+              ),
+              child: const Text("Responder"),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _responderSolicitud(
+    String uid,
+    String estado,
+    String respuesta,
+    BuildContext context,
+  ) async {
+    try {
+      // Actualizar la solicitud en la base de datos
+      await FirebaseFirestore.instance.collection(tipoSolicitud).doc(uid).update({
+        'estado': estado,
+        'respuesta': respuesta,
+      });
+      Navigator.pop(context, true); // Indicate that the item was updated
+    } catch (error) {
+      print('Error al actualizar en Firestore: $error');
+      // Aquí puedes agregar lógica para manejar el error, como mostrar un diálogo de error
+    }
   }
 }

@@ -6,6 +6,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:app_admin/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:app_admin/screens/register.dart';
+import 'package:app_admin/screens/login.dart';
+import 'package:app_admin/utils/theme.dart'; // Importa tu archivo de tema
+import 'package:app_admin/screens/admin_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,11 +29,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData.dark(
-        useMaterial3: true,
-      ),
-      home: const SignInScreen(),
+      title: 'Flutter',
+      theme: appTheme,
+      home: LoginPage(),
     );
   }
 }
